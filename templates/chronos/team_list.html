@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-3">
+    {% if team_list %}
+      <h2 class="d-flex justify-content-between">
+        Teams
+        <a href="{% url 'chronos:team-create' %}" class="btn btn-primary ms-auto">Create New</a>
+      </h2>
+
+      <div class="row mt-3">
+        {% for team in team_list %}
+          <div class="col-md-4 mb-4">
+            <div class="card team-card">
+              <div class="card-body">
+                <h5 class="card-title">{{ team.name }}</h5>
+                <p class="card-text"><strong>Members:</strong>
+                  {% for member in team.members.all %}
+                    {{ member.username }}{% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                </p>
+                <a class="btn btn-info" href="{% url 'chronos:team-detail' pk=team.id %}">Details</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <h1 class="text-center">There are no teams at the moment</h1>
+    {% endif %}
+  </div>
+{% endblock %}

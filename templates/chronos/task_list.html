@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="tab-content p-4">
+  <div class="tab-pane active show" id="tasks-tab" role="tabpanel">
+    <div class="d-flex justify-content-between">
+      <div class="col-6">
+        <h4 class="card-title mb-4">Tasks</h4>
+        <div class="d-flex mb-2">
+          <a href="{% url 'chronos:task-list' %}" class="px-2">
+            <span class="no-underline badge rounded-pill text-bg-secondary">All tasks</span>
+          </a>
+          <a href="{% url 'chronos:task-list' %}?sort=status&status=Completed" class="px-2">
+            <span class="no-underline badge rounded-pill text-bg-success">Completed Tasks</span>
+          </a>
+          <a href="{% url 'chronos:task-list' %}?sort=status&status=In Progress" class="px-2">
+            <span class="no-underline badge rounded-pill text-bg-warning">In Progress Tasks</span>
+          </a>
+          <a href="{% url 'chronos:task-list' %}?sort=status&status=Pending" class="px-2">
+            <span class="no-underline badge rounded-pill text-bg-danger">Pending</span>
+          </a>
+        </div>
+      </div>
+      <div class="">
+        <form method="get" action="{% url 'chronos:task-list' %}">
+          <label for="sort">Sort by:</label>
+          <select name="sort" id="sort">
+              <option value="status" {% if current_sort == 'status' %}selected{% endif %}>Status</option>
+              <option value="deadline" {% if current_sort == 'deadline' %}selected{% endif %}>Deadline</option>
+              <option value="priority" {% if current_sort == 'priority' %}selected{% endif %}>Priority</option>
+          </select>
+          <button type="submit">Sort</button>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12">
+        {% for task in task_list %}
+        <div class="task-list-box">
+          <div class="card task-box rounded-3">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-xl-4 col-sm-5">
+                  <div class="">
+                    <a href="{% url 'chronos:task-detail' pk=task.id %}" class="no-underline text-black">
+                      {{ task.title }}
+                    </a>
+                  </div>
+                  <div class="text-info">
+                    {{ task.task_type }}
+                  </div>
+                </div>
+                <div class="col-xl-6 col-sm-5">
+                  <div class="row align-items-center">
+                    <div class="col-xl-5 col-md-5 col-sm-5">
+                      <div class="avatar-group mt-3 mt-xl-0 task-assigne">
+                        <span class="me-4 text-muted">Assignees:</span>
+                        {% for worker in task.assignees.all %}
+                        <div class="avatar-group-item"> <a href="javascript: void(0);"
+                          class="d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ worker.username }}"> <img
+                          src="https://bootdey.com/img/Content/avatar/avatar2.png"
+                          alt="" class="rounded-circle avatar-sm"> </a>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div class="col-xl-5 col-md-5 col-sm-5">
+                      <div class="d-flex flex-wrap gap-3 mt-3 mt-xl-0 justify-content-md-end text-muted">
+                        <div>status <span
+                          class="badge rounded-pill badge {% if task.status == 'Completed' %}bg-success
+                          {% elif task.status == 'Pending' %}bg-danger
+                          {% else %}bg-warning{% endif %} font-size-11 task-status">{{ task.status }}</span>
+                        </div>
+                        <div>
+                          priority
+                          <span class="badge rounded-pill badge
+                            {% if task.priority == 'High' %}bg-success
+                            {% elif task.priority == 'Low' %}bg-danger
+                            {% else %}bg-warning{% endif %} font-size-11 task-status"
+                            >
+                          {{ task.priority }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-2 col-sm-2">
+                  <span class="text-muted">Deadline:</span> {{ task.deadline|date:"Y-m-d" }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    {% include "includes/pagination.html" %}
+  </div>
+</div>
+<script>
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+</script>
+{% endblock %}

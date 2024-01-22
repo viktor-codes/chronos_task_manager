@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-3">
+    {% if worker_list %}
+      <h2 class="d-flex justify-content-between">
+        Employees
+        <a href="{% url 'chronos:worker-create' %}" class="btn btn-primary ms-auto">Add Employee</a>
+      </h2>
+
+      <div class="row mt-3">
+        {% for worker in worker_list %}
+          <div class="col-md-4 mb-4">
+            <div class="card worker-card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <div class="row">
+                    <div class="col-8">
+                      <a href="{% url 'chronos:worker-detail' pk=worker.id %}" class="no-underline">
+                        {{ worker.first_name }} {{ worker.last_name }}
+                      </a>
+                    </div>
+                    <div class="col-4">
+                      <img
+                          src="https://bootdey.com/img/Content/avatar/avatar2.png"
+                          alt="" class="rounded-circle avatar-md">
+                    </div>
+                  </div>
+                </h5>
+                <p class="card-text"><strong>Position:</strong> {{ worker.position.name }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <h1 class="text-center">There are no workers at the moment</h1>
+    {% endif %}
+  </div>
+{% endblock %}
