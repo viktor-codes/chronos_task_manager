@@ -46,7 +46,9 @@ Chronos Task Manager is a web-based task management application designed to help
 ## Usage
 
 1. **Login:**
-   Access the application by navigating to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) and log in using your credentials.
+   Access the application by navigating to [https://chronos-q1n5.onrender.com](https://chronos-q1n5.onrender.com) and log in using your credentials.
+   * login: user
+   * password: user12345
 
 2. **Task Management:**
    - Create tasks with descriptions, due dates, statuses, and priorities.
@@ -56,4 +58,4 @@ Chronos Task Manager is a web-based task management application designed to help
    - Organize tasks within projects for better project management.
 
 4. **Admin Interface:**
-   - Access the Django admin interface at [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) to manage users, tasks, and projects.
+   - Access the Django admin interface at [https://chronos-q1n5.onrender.com/admin/](https://chronos-q1n5.onrender.com/admin/) to manage users, tasks, and projects.
