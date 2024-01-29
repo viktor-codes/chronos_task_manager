@@ -19,11 +19,14 @@
                       <a href="{% url 'chronos:worker-detail' pk=worker.id %}" class="no-underline">
                         {{ worker.first_name }} {{ worker.last_name }}
                       </a>
+                      <p class="text-muted">{{ worker.username }}</p>
                     </div>
                     <div class="col-4">
-                      <img
+                      <a href="{% url 'chronos:worker-detail' pk=worker.id %}">
+                        <img
                           src="https://bootdey.com/img/Content/avatar/avatar2.png"
                           alt="" class="rounded-circle avatar-md">
+                      </a>
                     </div>
                   </div>
                 </h5>

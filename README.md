@@ -42,6 +42,11 @@ Chronos Task Manager is a web-based task management application designed to help
    python manage.py createsuperuser
    ```
    Follow the prompts to create an admin user, which you can use to access the Django admin interface at [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/).
+## Configuration
+
+Before running the application, you need to set up the environment variables. 
+Copy the content of `.env.sample` and create a new file named `.env`. 
+Replace the placeholder values with your actual configuration.
 
 ## Usage
 

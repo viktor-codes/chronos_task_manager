@@ -27,7 +27,10 @@
       </div>
 
     {% else %}
-      <h1 class="text-center">There are no teams at the moment</h1>
+      <h1 class="text-center">
+        There are no teams at the moment
+        <a href="{% url 'chronos:team-create' %}" class="btn btn-primary ms-auto">Create New</a>
+      </h1>
     {% endif %}
   </div>
 {% endblock %}
